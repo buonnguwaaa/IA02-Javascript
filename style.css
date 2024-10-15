@@ -1,0 +1,25 @@
+body {
+    background-image: url(./image/background.jpg);
+}
+
+
+@media (min-width: 768px) {        
+    .checkbox-row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .checkbox-col {
+        width: 50%;
+    }
+}
+
+@media (max-width: 767px) {   
+    .checkbox-row {
+        display: block;
+    }
+
+    .checkbox-col {
+        width: 100%;
+    }
+}
