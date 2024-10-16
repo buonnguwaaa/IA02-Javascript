@@ -1,10 +1,3 @@
-const num1Input = document.querySelector("#num1");
-const num2Input = document.querySelector("#num2");
-const calculateBtn = document.querySelector("#calculateBtn");
-const notificationDiv = document.querySelector("#notification");
-const resultInput = document.querySelector("#result");
-const operationCheckboxes = document.querySelectorAll('input[name="operation"]');
-
 function isEmpty(input) {
     return !input.value.trim().length;
 }
@@ -12,6 +5,8 @@ function isEmpty(input) {
 function isValidNumber(value) {
   return !isNaN(parseFloat(value)) && isFinite(value);
 }
+
+const notificationDiv = document.querySelector("#notification");
 
 function showNotification(message) {
   notificationDiv.textContent = message;
@@ -26,9 +21,20 @@ function validateInput(input) {
   return true;
 }
 
+const num1Input = document.querySelector("#num1");
+const num2Input = document.querySelector("#num2");
+
+//Xử lý sự kiện blur cho 2 input
 num1Input.addEventListener("blur", () => validateInput(num1Input));
 num2Input.addEventListener("blur", () => validateInput(num2Input));
 
+
+
+const calculateBtn = document.querySelector("#calculateBtn");
+const resultInput = document.querySelector("#result");
+const operationCheckboxes = document.querySelectorAll('input[name="operation"]');
+
+//Xử lý sự kiện click cho nút Calculate
 calculateBtn.addEventListener("click", () => {
   if (!validateInput(num1Input) || !validateInput(num2Input)) {
     return;
