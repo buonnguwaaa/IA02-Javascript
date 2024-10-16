@@ -12,31 +12,45 @@ function showNotification(message) {
   notificationDiv.textContent = message;
 }
 
-function validateInput(input) {
-  if (!isValidNumber(input.value)) {
-    showNotification(`Caution: Please enter a valid number for ${input.name}.`);
-    input.focus();
-    return false;
-  }
-  return true;
-}
-
+const bothInputs = document.querySelectorAll('[name="input"]');
 const num1Input = document.querySelector("#num1");
 const num2Input = document.querySelector("#num2");
 
-//Xử lý sự kiện blur cho 2 input
-num1Input.addEventListener("blur", () => validateInput(num1Input));
-num2Input.addEventListener("blur", () => validateInput(num2Input));
-
+// console.log(bothInputs);
+bothInputs.forEach(input => {
+  input.addEventListener("mouseout", () => {
+    if (!isValidNumber(num1Input.value) && !isValidNumber(num2Input.value)) {
+      showNotification("Caution: Please enter valid numbers for both inputs.");
+      return;
+    }
+    if (!isValidNumber(num1Input.value)) {
+       showNotification(`Caution: Please enter a valid number for the 1st number.`);
+       return;
+     }
+    if (!isValidNumber(num2Input.value)) {
+      showNotification(`Caution: Please enter a valid number for the 2nd number.`);
+      return;
+    }
+    showNotification(""); 
+  });
+});
 
 
 const calculateBtn = document.querySelector("#calculateBtn");
 const resultInput = document.querySelector("#result");
 const operationCheckboxes = document.querySelectorAll('input[name="operation"]');
 
-//Xử lý sự kiện click cho nút Calculate
 calculateBtn.addEventListener("click", () => {
-  if (!validateInput(num1Input) || !validateInput(num2Input)) {
+  if (!isValidNumber(num1Input.value) && !isValidNumber(num2Input.value)) {
+    showNotification("Caution: Please enter valid numbers for both inputs.");
+    return;
+  }
+  if (!isValidNumber(num1Input.value)) {
+     showNotification(`Caution: Please enter a valid number for the 1st number.`);
+     return;
+   }
+  if (!isValidNumber(num2Input.value)) {
+    showNotification(`Caution: Please enter a valid number for the 2nd number.`);
     return;
   }
 
@@ -62,18 +76,16 @@ calculateBtn.addEventListener("click", () => {
       break;
     case "divideOp":
       if (num2 === 0) {
-        showNotification("Caution: Can not divide by zero.");
+        showNotification("Caution: Can not be divided by zero.");
         return;
       }
       result = num1 / num2;
       break;
   }
-
+  showNotification("");
   resultInput.value = result;
-  showNotification(""); // Clear any previous notification
 });
 
-// Ensure only one checkbox can be selected at a time
 operationCheckboxes.forEach(checkbox => {
   checkbox.addEventListener("change", () => {
     if (checkbox.checked) {
