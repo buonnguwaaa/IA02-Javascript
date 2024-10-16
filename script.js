@@ -18,19 +18,19 @@ const num2Input = document.querySelector("#num2");
 
 // console.log(bothInputs);
 bothInputs.forEach(input => {
-  input.addEventListener("mouseout", () => {
+  input.addEventListener("blur", () => {
+    if (!isValidNumber(num1Input.value) && (isEmpty(num2Input) || isValidNumber(num2Input.value))) {
+      showNotification(`Caution: Please enter a valid number for the 1st number.`);
+      return;
+    }
+   if (!isValidNumber(num2Input.value) && (isEmpty(num1Input) || isValidNumber(num1Input.value))) {
+     showNotification(`Caution: Please enter a valid number for the 2nd number.`);
+     return;
+   }
     if (!isValidNumber(num1Input.value) && !isValidNumber(num2Input.value)) {
       showNotification("Caution: Please enter valid numbers for both inputs.");
       return;
-    }
-    if (!isValidNumber(num1Input.value)) {
-       showNotification(`Caution: Please enter a valid number for the 1st number.`);
-       return;
-     }
-    if (!isValidNumber(num2Input.value)) {
-      showNotification(`Caution: Please enter a valid number for the 2nd number.`);
-      return;
-    }
+    }    
     showNotification(""); 
   });
 });
@@ -45,14 +45,15 @@ calculateBtn.addEventListener("click", () => {
     showNotification("Caution: Please enter valid numbers for both inputs.");
     return;
   }
-  if (!isValidNumber(num1Input.value)) {
-     showNotification(`Caution: Please enter a valid number for the 1st number.`);
-     return;
-   }
-  if (!isValidNumber(num2Input.value)) {
+  if (!isValidNumber(num1Input.value) && (isEmpty(num2Input) || isValidNumber(num2Input.value))) {
+    showNotification(`Caution: Please enter a valid number for the 1st number.`);
+    return;
+  }
+  if (!isValidNumber(num2Input.value) && (isEmpty(num1Input) || isValidNumber(num1Input.value))) {
     showNotification(`Caution: Please enter a valid number for the 2nd number.`);
     return;
   }
+    
 
   const selectedOperation = Array.from(operationCheckboxes).find(checkbox => checkbox.checked);
   if (!selectedOperation) {
