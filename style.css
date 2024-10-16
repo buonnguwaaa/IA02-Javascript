@@ -2,6 +2,9 @@ body {
     background-image: url(./image/background.jpg);
 }
 
+.card {
+    max-width: 100%;
+}
 
 @media (min-width: 768px) {        
     .checkbox-row {
@@ -12,6 +15,10 @@ body {
     .checkbox-col {
         width: 50%;
     }
+
+    .calculator-card {
+        padding: 2rem;
+    }
 }
 
 @media (max-width: 767px) {   
@@ -21,5 +28,9 @@ body {
 
     .checkbox-col {
         width: 100%;
+    }
+
+    .calculator-card {
+        padding: 1.5rem;
     }
 }
